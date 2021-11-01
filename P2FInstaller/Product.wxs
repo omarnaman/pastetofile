@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?define binFolder="..\bin\Release\"?>
+	<Product Id="*" Name="P2FInstaller" Language="1033" Version="1.0.0.0" Manufacturer="onaman" UpgradeCode="92208b6e-0865-4e7a-a4a8-5e9453470c1f">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="Paste to File" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentRef Id="RegistryEntries"/>
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Paste to File" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<DirectoryRef Id="TARGETDIR">
+			<Component Id="RegistryEntries" Guid="24b288bc-3b56-11ec-a5eb-00155d013c39">
+				<RegistryKey Root="HKCR"
+							 Key="Directory\Background\shell\Paste.to.File">
+					<RegistryValue Type="string" Value="Paste to a file"/>
+					<RegistryKey Key="command">
+						<RegistryValue Value="&quot;[INSTALLFOLDER]\PasteToFile.exe&quot; &quot;%V&quot;" Type="string"/>
+					</RegistryKey>
+				</RegistryKey>
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<Component Id="P2F.exe" Guid="aebea10c-3b52-11ec-a5eb-00155d013c39">
+				<File Id="PasteToFile.exe" Source="$(var.PasteToFile.TargetDir)" KeyPath="yes" Checksum="yes"/>
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+	
+</Wix>
