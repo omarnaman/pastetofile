@@ -1,5 +1,5 @@
 # Paste To File
-Paste to File or **P2F** is used to quickly paste clipboard date into a file on Windows. P2F supports both images and text.
+Paste to File or **P2F** is used to quickly paste clipboard data into a file on Windows. P2F supports both images and text.
 
 
 # Usage
